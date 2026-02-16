@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenClaw BI Dashboard Frontend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/homan/bi-dashboard/frontend
+ExecStart=/usr/bin/npm run dev -- --host
+Restart=always
+RestartSec=10
+Environment="PATH=/usr/bin:/usr/local/bin:/home/homan/.nvm/versions/node/v22.22.0/bin"
+
+[Install]
+WantedBy=default.target

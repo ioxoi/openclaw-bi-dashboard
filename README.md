@@ -157,6 +157,69 @@ cd frontend/dist
 python3 -m http.server 3000
 ```
 
+## Auto-Start on Boot (Linux systemd)
+
+To have the dashboard start automatically when your system boots:
+
+### 1. Copy Service Files
+
+```bash
+mkdir -p ~/.config/systemd/user
+cp systemd/openclaw-bi-backend.service ~/.config/systemd/user/
+cp systemd/openclaw-bi-frontend.service ~/.config/systemd/user/
+```
+
+### 2. Update Paths
+
+Edit both service files and replace `/home/homan/bi-dashboard` with your actual path:
+
+```bash
+# Edit backend service
+nano ~/.config/systemd/user/openclaw-bi-backend.service
+
+# Edit frontend service
+nano ~/.config/systemd/user/openclaw-bi-frontend.service
+```
+
+### 3. Enable and Start Services
+
+```bash
+# Reload systemd
+systemctl --user daemon-reload
+
+# Enable services (auto-start on boot)
+systemctl --user enable openclaw-bi-backend.service
+systemctl --user enable openclaw-bi-frontend.service
+
+# Start services now
+systemctl --user start openclaw-bi-backend.service
+systemctl --user start openclaw-bi-frontend.service
+```
+
+### 4. Check Status
+
+```bash
+systemctl --user status openclaw-bi-backend.service
+systemctl --user status openclaw-bi-frontend.service
+```
+
+### Managing Services
+
+```bash
+# Stop services
+systemctl --user stop openclaw-bi-backend.service openclaw-bi-frontend.service
+
+# Restart services
+systemctl --user restart openclaw-bi-backend.service openclaw-bi-frontend.service
+
+# View logs
+journalctl --user -u openclaw-bi-backend.service -f
+journalctl --user -u openclaw-bi-frontend.service -f
+
+# Disable auto-start
+systemctl --user disable openclaw-bi-backend.service openclaw-bi-frontend.service
+```
+
 ## Troubleshooting
 
 ### Backend won't start

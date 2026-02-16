@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenClaw BI Dashboard Backend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/homan/bi-dashboard/backend
+ExecStart=/home/homan/bi-dashboard/backend/venv/bin/python /home/homan/bi-dashboard/backend/main.py
+Restart=always
+RestartSec=10
+Environment="PATH=/usr/bin:/usr/local/bin"
+
+[Install]
+WantedBy=default.target
